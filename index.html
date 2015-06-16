@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>firenze-adapter-memory by fahad19</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>firenze-adapter-memory</h1>
+        <p>Memory adapter for firenze.js ORM</p>
+
+        <p class="view"><a href="https://github.com/fahad19/firenze-adapter-memory">View the Project on GitHub <small>fahad19/firenze-adapter-memory</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/fahad19/firenze-adapter-memory/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/fahad19/firenze-adapter-memory/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/fahad19/firenze-adapter-memory">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="firenze-adapter-memory" class="anchor" href="#firenze-adapter-memory" aria-hidden="true"><span class="octicon octicon-link"></span></a>firenze-adapter-memory</h1>
+
+<p><a href="http://travis-ci.org/fahad19/firenze-adapter-memory"><img src="https://secure.travis-ci.org/fahad19/firenze-adapter-memory.png?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/r/fahad19/firenze-adapter-memory?branch=master"><img src="https://coveralls.io/repos/fahad19/firenze-adapter-memory/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://www.npmjs.com/package/firenze-adapter-memory"><img src="https://img.shields.io/npm/v/firenze-adapter-memory.svg" alt="npm"></a></p>
+
+<p>In-memory database adapter for <a href="https://github.com/fahad19/firenze">firenze.js</a></p>
+
+<p>Install it with <a href="https://npmjs.com">npm</a> or <a href="http://bower.io">Bower</a>:</p>
+
+<pre><code>$ npm install --save firenze-adapter-memory
+
+$ bower install --save firenze-adapter-memory
+</code></pre>
+
+
+
+
+
+<h1>
+<a id="contents" class="anchor" href="#contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contents</h1>
+
+<ul>
+<li>
+<a href="#usage">Usage</a>
+
+<ul>
+<li><a href="#nodejs">Node.js</a></li>
+<li><a href="#browser">Browser</a></li>
+</ul>
+</li>
+<li>
+<a href="#finders">Finders</a>
+
+<ul>
+<li><a href="#first">first</a></li>
+<li><a href="#all">all</a></li>
+<li><a href="#list">list</a></li>
+<li><a href="#count">count</a></li>
+</ul>
+</li>
+<li><a href="#order">Order</a></li>
+<li><a href="#limit-pagination">Limit (pagination)</a></li>
+<li>
+<a href="#fields">Fields</a>
+
+<ul>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="nodejs" class="anchor" href="#nodejs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Node.js</h3>
+
+<p>With <a href="https://npmjs.com">npm</a>:</p>
+
+<pre><code>$ npm install --save firenze-adapter-memory
+</code></pre>
+
+<p>Now you can require it as follows:</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-k">var</span> f <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>firenze<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> Database <span class="pl-k">=</span> f.Database;
+<span class="pl-k">var</span> MemoryAdapter <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>firenze-adapter-memory<span class="pl-pds">'</span></span>);
+
+<span class="pl-k">var</span> db <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Database</span>({
+  adapter<span class="pl-k">:</span> MemoryAdapter
+});</pre></div>
+
+<h3>
+<a id="browser" class="anchor" href="#browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser</h3>
+
+<p>Or <a href="http://bower.io">Bower</a>:</p>
+
+<pre><code>$ bower installl --save firenze-adapter-memory
+</code></pre>
+
+<p>Can be loaded in your HTML page as follows:</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>bower_components/lodash/lodash.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>bower_components/async/lib/async.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>bower_components/bluebird/js/browser/bluebird.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>bower_components/validator-js/validator.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+
+<span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>bower_components/firenze/dist/firenze.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>bower_components/firenze-adapter-memory/dist/firenze-adapter-memory.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+
+<span class="pl-k">&lt;</span>script<span class="pl-k">&gt;</span>
+<span class="pl-c">// Memory adapter is availble in `firenze.MemoryAdapter`</span>
+<span class="pl-k">var</span> db <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">firenze.Database</span>({
+  adapter<span class="pl-k">:</span> <span class="pl-k">new</span> <span class="pl-en">firenze.MemoryAdapter</span>()
+});
+<span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span></pre></div>
+
+<h2>
+<a id="finders" class="anchor" href="#finders" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finders</h2>
+
+<p>Examples below assumes you have an instance of Collection already:</p>
+
+<div class="highlight highlight-js"><pre><span class="pl-k">var</span> posts <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Posts</span>();</pre></div>
+
+<h3>
+<a id="first" class="anchor" href="#first" aria-hidden="true"><span class="octicon octicon-link"></span></a>first</h3>
+
+<p>Gives you the first matched result:</p>
+
+<div class="highlight highlight-js"><pre>posts.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>first<span class="pl-pds">'</span></span>, {
+  conditions<span class="pl-k">:</span> {
+    id<span class="pl-k">:</span> <span class="pl-c1">1</span>
+  }
+}).then(<span class="pl-k">function</span> (<span class="pl-smi">post</span>) {
+  <span class="pl-c">// post is now an instance of Post model</span>
+  <span class="pl-k">var</span> title <span class="pl-k">=</span> post.get(<span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<h3>
+<a id="all" class="anchor" href="#all" aria-hidden="true"><span class="octicon octicon-link"></span></a>all</h3>
+
+<p>Gives you all matched results:</p>
+
+<div class="highlight highlight-js"><pre>posts.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>all<span class="pl-pds">'</span></span>, {
+  conditions<span class="pl-k">:</span> {
+    published<span class="pl-k">:</span> <span class="pl-c1">true</span>
+  }
+}).then(<span class="pl-k">function</span> (<span class="pl-smi">models</span>) {
+  models.forEach(<span class="pl-k">function</span> (<span class="pl-smi">model</span>) {
+    <span class="pl-k">var</span> title <span class="pl-k">=</span> model.get(<span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>);
+  });
+});</pre></div>
+
+<h3>
+<a id="list" class="anchor" href="#list" aria-hidden="true"><span class="octicon octicon-link"></span></a>list</h3>
+
+<p>Gives you a list of key/value paired object of matched results:</p>
+
+<div class="highlight highlight-js"><pre>posts.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>list<span class="pl-pds">'</span></span>, {
+  fields<span class="pl-k">:</span> [
+    <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>,
+    <span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>
+  ]
+}).then(<span class="pl-k">function</span> (<span class="pl-smi">list</span>) {
+  <span class="pl-c">// list is now:</span>
+  <span class="pl-c">//</span>
+  <span class="pl-c">// {</span>
+  <span class="pl-c">//   1: 'Hello World',</span>
+  <span class="pl-c">//   2: 'About'</span>
+  <span class="pl-c">// }</span>
+});</pre></div>
+
+<h3>
+<a id="count" class="anchor" href="#count" aria-hidden="true"><span class="octicon octicon-link"></span></a>count</h3>
+
+<p>Gives you the total count of matched results:</p>
+
+<div class="highlight highlight-js"><pre>posts.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>count<span class="pl-pds">'</span></span>).then(<span class="pl-k">function</span> (<span class="pl-smi">count</span>) {
+  <span class="pl-c">// count is an integer here</span>
+});</pre></div>
+
+<h2>
+<a id="order" class="anchor" href="#order" aria-hidden="true"><span class="octicon octicon-link"></span></a>Order</h2>
+
+<p>For ordering results:</p>
+
+<div class="highlight highlight-js"><pre>posts.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>all<span class="pl-pds">'</span></span>, {
+  order<span class="pl-k">:</span> {
+    <span class="pl-s"><span class="pl-pds">'</span>Post.title<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>asc<span class="pl-pds">'</span></span>
+  }
+});</pre></div>
+
+<h2>
+<a id="limit-pagination" class="anchor" href="#limit-pagination" aria-hidden="true"><span class="octicon octicon-link"></span></a>Limit (pagination)</h2>
+
+<p>Limit number of results:</p>
+
+<div class="highlight highlight-js"><pre>posts.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>all<span class="pl-pds">'</span></span>, {
+  limit<span class="pl-k">:</span> <span class="pl-c1">10</span>
+});</pre></div>
+
+<p>If you want to go through paginated results:</p>
+
+<div class="highlight highlight-js"><pre>posts.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>all<span class="pl-pds">'</span></span>, {
+  limit<span class="pl-k">:</span> <span class="pl-c1">10</span>,
+  page<span class="pl-k">:</span> <span class="pl-c1">2</span>
+});</pre></div>
+
+<h2>
+<a id="fields" class="anchor" href="#fields" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fields</h2>
+
+<p>Select only a number of fields:</p>
+
+<div class="highlight highlight-js"><pre>posts.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>all<span class="pl-pds">'</span></span>, {
+  fields<span class="pl-k">:</span> [
+    <span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>,
+    <span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>
+  ]
+});</pre></div>
+
+
+
+<h1>
+<a id="testing" class="anchor" href="#testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testing</h1>
+
+<p>Tests are written with <a href="http://mochajs.org/">mocha</a>, and can be run via npm:</p>
+
+<pre><code>$ npm test
+</code></pre>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>MIT © <a href="http://fahad19.com">Fahad Ibnay Heylaal</a></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/fahad19">fahad19</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-47493443-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
