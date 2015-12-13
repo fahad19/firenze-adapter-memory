@@ -9,7 +9,7 @@
     "lint": "eslint index.js src test",
     "test:babel": "babel node_modules/firenze/test --out-dir node_modules/firenze/_test",
     "test:deps": "cd ./node_modules/firenze && npm install",
-    "mocha": "mocha --require ./test/setup.js --compilers js:babel-register node_modules/firenze/_test/cases/*.js",
+    "mocha": "mocha --require ./test/setup.js --compilers js:babel-register --grep '(JOIN|expression|distinct|OR|NOT)' --invert node_modules/firenze/_test/cases/*.js",
     "test": "run-scripts lint babel test:babel test:deps mocha",
     "istanbul": "istanbul cover ./node_modules/mocha/bin/_mocha $(find lib/test/cases -name '*.js')",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
