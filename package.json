@@ -9,7 +9,7 @@
     "lint": "eslint index.js src test",
     "test:babel": "babel node_modules/firenze/test --out-dir node_modules/firenze/_test",
     "test:deps": "cd ./node_modules/firenze && npm install",
-    "mocha": "mocha --require ./test/setup.js --compilers js:babel-register --grep '(JOIN|expression|distinct|OR|NOT)' --invert node_modules/firenze/_test/cases/*.js",
+    "mocha": "mocha --require ./test/setup.js --compilers js:babel-register --grep '(JOIN|expression|distinct|OR|NOT|Migration)' --invert node_modules/firenze/_test/cases/*.js",
     "test": "run-scripts lint babel test:babel test:deps mocha",
     "istanbul": "istanbul cover ./node_modules/mocha/bin/_mocha $(find lib/test/cases -name '*.js')",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
@@ -44,10 +44,10 @@
     "lodash": "~3.10.1"
   },
   "peerDependencies": {
-    "firenze": "~0.3.0"
+    "firenze": "^0.4.0"
   },
   "devDependencies": {
-    "firenze": "~0.3.0",
+    "firenze": "^0.4.0",
     "babel": "~6.3.13",
     "babel-cli": "~6.3.15",
     "babel-eslint": "~5.0.0-beta4",
